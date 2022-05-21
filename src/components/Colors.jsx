@@ -1,12 +1,10 @@
 import React, { useCallback, useContext, useMemo } from "react";
 import styled from "styled-components";
-import Accordion from "./Accordion";
-import Controls from "./Controls";
 import Select from "react-select";
 import { rotationOptions, typeOptions } from "../config";
 import clone from "clone";
 import { GradientContext } from "../context";
-import SplitScreen from "./SplitScreen";
+import ColorsList from "./ColorsList";
 
 const FlexBox = styled.div`
   display: flex;
@@ -50,16 +48,6 @@ export default function Colors() {
     [gradient]
   );
 
-  const updateColor = useCallback(
-    (index, newColor) => {
-      const newGradient = clone(gradient);
-      newGradient.colors[index] = newColor;
-
-      updateGradient(newGradient);
-    },
-    [gradient, updateGradient]
-  );
-
   const updateRotation = useCallback(
     event => {
       const newRotation = event.value;
@@ -81,21 +69,6 @@ export default function Colors() {
     },
     [gradient, updateGradient]
   );
-
-  const accordionItems = useMemo(() => {
-    if (!gradient) {
-      return [];
-    }
-
-    const { colors } = gradient;
-
-    return colors.map((color, index) => {
-      return {
-        title: color.value,
-        content: <Controls index={index} {...color} update={updateColor} />,
-      };
-    });
-  }, [gradient, updateColor]);
 
   return (
     <ColorsWrapper>
@@ -121,7 +94,7 @@ export default function Colors() {
         </DropdownContainer>
       </FlexBox>
 
-      <Accordion items={accordionItems} />
+      <ColorsList />
     </ColorsWrapper>
   );
 }
