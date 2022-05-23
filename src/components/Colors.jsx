@@ -51,13 +51,14 @@ const ColorsWrapper = styled.div`
 
 const CopyCssButton = styled.button`
   border: none;
-  background-color: #0d6efd;
+  background-color: #0066ff;
   color: #fff;
   font-size: 0.9rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
 
   &:hover {
+    background-color: #005ce6;
     cursor: pointer;
   }
 `;

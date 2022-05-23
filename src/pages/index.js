@@ -27,7 +27,7 @@ export default function Home() {
             name="keywords"
             content="gradiator, gradients, gradient css, generate gradient, create gradient"
           />
-          <link rel="canonical" href="http://mysite.com/example" />
+          <link rel="canonical" href="https://gradiator.netlify.app/" />
         </Helmet>
         <CenteredHeading />
         <SplitScreen>

@@ -32,7 +32,7 @@ export default function CenteredHeading() {
   return (
     <Wrapper>
       <FlexBox>
-        <img src="/blob.svg" alt="Gradiator Logo" />
+        <img src="/favicon.svg" alt="Gradiator Logo" />
         <Title>Gradiator</Title>
       </FlexBox>
       <SubTitle>Create stunning gradients for your app.</SubTitle>
