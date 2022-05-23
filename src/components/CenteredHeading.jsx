@@ -6,6 +6,17 @@ const Wrapper = styled.div`
   padding: 2rem 0;
 `;
 
+const FlexBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 4.688rem;
+    height: auto;
+  }
+`;
+
 const Title = styled.p`
   font-size: 3.125rem;
   font-weight: 800;
@@ -20,8 +31,11 @@ const SubTitle = styled.p`
 export default function CenteredHeading() {
   return (
     <Wrapper>
-      <Title>Awesome Gradients</Title>
-      <SubTitle>Create and export beautiful gradients.</SubTitle>
+      <FlexBox>
+        <img src="/blob.svg" alt="Gradiator Logo" />
+        <Title>Gradiator</Title>
+      </FlexBox>
+      <SubTitle>Create stunning gradients for your app.</SubTitle>
     </Wrapper>
   );
 }

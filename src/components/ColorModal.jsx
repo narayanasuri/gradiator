@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BlockPicker } from "react-color";
 import Modal from "react-modal/lib/components/Modal";
 import styled from "styled-components";
 
@@ -9,7 +10,6 @@ const modalStyles = {
   content: {
     top: "50%",
     left: "50%",
-    minHeight: "12rem",
     right: "auto",
     bottom: "auto",
     borderRadius: "0.875rem",
@@ -17,6 +17,11 @@ const modalStyles = {
     transform: "translate(-50%, -50%)",
   },
 };
+
+const FlexBox = styled.div`
+  display: flex;
+  justify-content: end;
+`;
 
 const FieldSet = styled.div`
   margin-bottom: 1rem;
@@ -40,33 +45,27 @@ const PropertyLabel = styled.p`
 `;
 
 const NegativeButton = styled.button`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  margin: 1rem;
   border: none;
-  background-color: #6c757d;
-  color: #fff;
+  background-color: transparent;
+  color: ##44445a;
   font-size: 0.9rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
 
   &:hover {
+    background-color: whitesmoke;
     cursor: pointer;
   }
 `;
 
 const PositiveButton = styled.button`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 1rem;
   border: none;
   background-color: #0d6efd;
   color: #fff;
   font-size: 0.9rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  margin-left: 0.75rem;
 
   &:hover {
     cursor: pointer;
@@ -77,7 +76,7 @@ Modal.setAppElement("#___gatsby");
 
 const ColorModal = ({
   index = -1,
-  color = "#FF0000",
+  color = "#FFFFFF",
   position = 100,
   isOpen,
   setIsOpen,
@@ -95,8 +94,8 @@ const ColorModal = ({
     setIsOpen(false);
   };
 
-  const onColorUpdate = e => {
-    setNewColor(e.target.value);
+  const onColorUpdate = ({ hex }) => {
+    setNewColor(hex);
   };
 
   const onPositionUpdate = e => {
@@ -118,7 +117,7 @@ const ColorModal = ({
     >
       <FieldSet>
         <PropertyLabel>Color</PropertyLabel>
-        <input type="text" value={newColor} onChange={onColorUpdate} />
+        <BlockPicker color={newColor} onChangeComplete={onColorUpdate} />
       </FieldSet>
       <FieldSet>
         <PropertyLabel>{`Position (${newPosition})`}</PropertyLabel>
@@ -130,8 +129,12 @@ const ColorModal = ({
           onChange={onPositionUpdate}
         />
       </FieldSet>
-      <NegativeButton onClick={close}>Cancel</NegativeButton>
-      <PositiveButton onClick={save}>Add</PositiveButton>
+      <FlexBox>
+        <NegativeButton onClick={close}>Cancel</NegativeButton>
+        <PositiveButton onClick={save}>
+          {index === -1 ? "Add" : "Save"}
+        </PositiveButton>
+      </FlexBox>
     </Modal>
   );
 };

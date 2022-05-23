@@ -48,10 +48,6 @@ export default function ColorsList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentEditingColor, setCurrentEditingColor] = useState({});
 
-  useEffect(() => {
-    console.log({ ...currentEditingColor });
-  }, [currentEditingColor]);
-
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -61,13 +57,6 @@ export default function ColorsList() {
       setCurrentEditingColor({});
     }
   }, [isModalOpen]);
-
-  useEffect(() => {
-    console.log("currentEditingColor changed - ", currentEditingColor);
-    if (currentEditingColor.index > -1) {
-      openModal();
-    }
-  }, [currentEditingColor]);
 
   const saveColor = ({ index, value, position }) => {
     const copy = clone(gradient);
@@ -92,6 +81,7 @@ export default function ColorsList() {
     };
 
     setCurrentEditingColor(temp);
+    openModal();
   };
 
   return (
@@ -101,12 +91,14 @@ export default function ColorsList() {
       <FlexBox>
         {gradient.colors.map((color, index) => (
           <ColorBox
-            id={index}
+            key={index}
             style={{ backgroundColor: color.value }}
             onClick={() => editColor(index)}
           />
         ))}
-        <AddButton onClick={openModal}>+</AddButton>
+        {gradient.colors.length <= 5 && (
+          <AddButton onClick={openModal}>+</AddButton>
+        )}
       </FlexBox>
 
       <ColorModal

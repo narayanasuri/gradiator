@@ -1,22 +1,17 @@
-import React from "react";
-import Accordion from "../components/Accordion";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
+import { BlockPicker } from "react-color";
 
 export default function Test() {
-  const items = [
-    {
-      title: "Color 1",
-      content: <p>Hello World</p>,
-    },
-    {
-      title: "Color 2",
-      content: <p>Hello World 2</p>,
-    },
-  ];
+  const [color, setColor] = useState("#3b5998");
+
+  const onColorChange = ({ hex }) => {
+    setColor(hex);
+  };
 
   return (
     <Layout>
-      <Accordion items={items} />
+      <BlockPicker color={color} onChangeComplete={onColorChange} />
     </Layout>
   );
 }

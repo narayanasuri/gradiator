@@ -34,7 +34,7 @@ export const defaultGradient = {
   type: "Linear",
   colors: [
     {
-      value: "#C81D77",
+      value: "#DCE775",
       position: 0,
     },
     {
