@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const FooterWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
   background-color: #f3f3f3;
   height: 5rem;
   width: 100%;

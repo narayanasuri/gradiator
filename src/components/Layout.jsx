@@ -1,5 +1,7 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
+import Footer from "./Footer";
 
 const GlobalStyle = createGlobalStyle`
   html, body, #___gatsby, #gatsby-focus-wrapper {
@@ -19,17 +21,18 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     letter-spacing: -0.05rem;
   }
+`;
 
-  #gatsby-focus-wrapper {
-    position: relative;
-  }
+const Content = styled.div`
+  min-height: 100%;
 `;
 
 export default function Layout({ children }) {
   return (
     <React.Fragment>
       <GlobalStyle theme="light" />
-      {children}
+      <Content>{children}</Content>
+      <Footer />
     </React.Fragment>
   );
 }

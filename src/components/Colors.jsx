@@ -51,15 +51,24 @@ const ColorsWrapper = styled.div`
 
 const CopyCssButton = styled.button`
   border: none;
-  background-color: #0066ff;
+  background-color: #1b1c1d;
   color: #fff;
   font-size: 0.9rem;
   padding: 0.5rem;
+  border: 0.063rem solid transparent;
   border-radius: 0.5rem;
 
   &:hover {
-    background-color: #005ce6;
+    background-color: #27292a;
     cursor: pointer;
+  }
+
+  &:active {
+    background-color: #343637;
+  }
+
+  &:focus {
+    background-color: #2f3032;
   }
 `;
 
@@ -117,7 +126,14 @@ export default function Colors() {
   );
 
   const onCopyCss = useCallback(() => {
-    console.log(css);
+    const copyText = document.querySelector("#copyButton").innerHTML;
+
+    document.querySelector("#copyButton").innerHTML = "Copied!";
+
+    setTimeout(() => {
+      document.querySelector("#copyButton").innerHTML = copyText;
+    }, 800);
+
     navigator.clipboard.writeText(css);
   }, [css]);
 
@@ -128,6 +144,7 @@ export default function Colors() {
           <p>Rotation</p>
           <StyledSelect
             name="Rotation"
+            isSearchable={false}
             defaultValue={defaultRotationOption}
             options={rotationOptions}
             onChange={updateRotation}
@@ -138,6 +155,7 @@ export default function Colors() {
           <p>Type</p>
           <StyledSelect
             name="Type"
+            isSearchable={false}
             defaultValue={defaultTypeOption}
             options={typeOptions}
             onChange={updateType}
@@ -149,7 +167,7 @@ export default function Colors() {
 
       <Animation />
 
-      <CopyCssButton onClick={onCopyCss}>
+      <CopyCssButton id="copyButton" onClick={onCopyCss}>
         <CopyIcon size={16} /> Copy CSS
       </CopyCssButton>
     </ColorsWrapper>

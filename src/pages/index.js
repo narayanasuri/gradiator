@@ -7,7 +7,6 @@ import { defaultGradient } from "../config";
 import { GradientContext } from "../context";
 import CenteredHeading from "../components/CenteredHeading";
 import Helmet from "react-helmet";
-import Footer from "../components/Footer";
 
 export default function Home() {
   const [gradient, updateGradient] = useState(defaultGradient);
@@ -34,7 +33,6 @@ export default function Home() {
           <Canvas />
           <Colors />
         </SplitScreen>
-        <Footer />
       </Layout>
     </GradientContext.Provider>
   );

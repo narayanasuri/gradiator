@@ -78,10 +78,21 @@ export default function ColorsList() {
       index,
       color: color.value,
       position: color.position,
+      canBeDeleted: gradient.colors.length > 2,
     };
 
     setCurrentEditingColor(temp);
     openModal();
+  };
+
+  const deleteColor = index => {
+    const copy = clone(gradient);
+
+    copy.colors.splice(index, 1);
+
+    setCurrentEditingColor({});
+
+    updateGradient(copy);
   };
 
   return (
@@ -106,6 +117,7 @@ export default function ColorsList() {
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
         onSave={saveColor}
+        onDelete={deleteColor}
       />
     </Wrapper>
   );

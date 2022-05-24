@@ -1,3 +1,4 @@
+import { CheckIcon, TrashIcon, XIcon } from "@primer/octicons-react";
 import React, { useState } from "react";
 import { BlockPicker } from "react-color";
 import Modal from "react-modal/lib/components/Modal";
@@ -18,9 +19,13 @@ const modalStyles = {
   },
 };
 
+const ModalFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const FlexBox = styled.div`
   display: flex;
-  justify-content: end;
 `;
 
 const FieldSet = styled.div`
@@ -31,11 +36,7 @@ const FieldSet = styled.div`
     margin-bottom: 0.35rem;
   }
   > input {
-    width: 8.125rem;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 0.063rem solid #cccccc;
-    border-radius: 0.25rem;
+    width: 100%;
   }
 `;
 
@@ -46,29 +47,59 @@ const PropertyLabel = styled.p`
 
 const NegativeButton = styled.button`
   border: none;
-  background-color: transparent;
-  color: ##44445a;
+  background-color: #db2828;
+  color: #ffffff;
   font-size: 0.9rem;
   padding: 0.5rem;
+  border: 0.063rem solid transparent;
   border-radius: 0.5rem;
 
   &:hover {
-    background-color: whitesmoke;
+    background-color: #d01919;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: #b21e1e;
+  }
+`;
+
+const NeutralButton = styled.button`
+  border: none;
+  background-color: #fff;
+  color: #363636;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  border: 0.063rem solid #dbdbdb;
+  border-radius: 0.5rem;
+
+  &:hover {
+    border-color: #b5b5b5;
     cursor: pointer;
   }
 `;
 
 const PositiveButton = styled.button`
   border: none;
-  background-color: #0d6efd;
+  background-color: #1b1c1d;
   color: #fff;
   font-size: 0.9rem;
   padding: 0.5rem;
+  border: 0.063rem solid transparent;
   border-radius: 0.5rem;
   margin-left: 0.75rem;
 
   &:hover {
+    background-color: #27292a;
     cursor: pointer;
+  }
+
+  &:active {
+    background-color: #343637;
+  }
+
+  &:focus {
+    background-color: #2f3032;
   }
 `;
 
@@ -78,19 +109,23 @@ const ColorModal = ({
   index = -1,
   color = "#FFFFFF",
   position = 100,
+  canBeDeleted,
   isOpen,
   setIsOpen,
   onSave,
+  onDelete,
 }) => {
   const [newColor, setNewColor] = useState(color);
   const [newPosition, setNewPosition] = useState(position);
 
   const afterOpen = () => {
+    document.body.style.overflow = "hidden";
     setNewColor(color);
     setNewPosition(position);
   };
 
   const close = () => {
+    document.body.style.overflow = "auto";
     setIsOpen(false);
   };
 
@@ -107,6 +142,11 @@ const ColorModal = ({
     close();
   };
 
+  const deleteItem = () => {
+    onDelete(index);
+    close();
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -117,24 +157,40 @@ const ColorModal = ({
     >
       <FieldSet>
         <PropertyLabel>Color</PropertyLabel>
-        <BlockPicker color={newColor} onChangeComplete={onColorUpdate} />
+        <BlockPicker
+          color={newColor}
+          onChangeComplete={onColorUpdate}
+          triangle="hide"
+          width="200px"
+        />
       </FieldSet>
       <FieldSet>
         <PropertyLabel>{`Position (${newPosition})`}</PropertyLabel>
         <input
           type="range"
-          min={0}
-          max={100}
+          min="0"
+          max="100"
           value={newPosition}
           onChange={onPositionUpdate}
         />
       </FieldSet>
-      <FlexBox>
-        <NegativeButton onClick={close}>Cancel</NegativeButton>
-        <PositiveButton onClick={save}>
-          {index === -1 ? "Add" : "Save"}
-        </PositiveButton>
-      </FlexBox>
+      <ModalFooter>
+        <FlexBox>
+          {canBeDeleted && (
+            <NegativeButton onClick={deleteItem}>
+              <TrashIcon />
+            </NegativeButton>
+          )}
+        </FlexBox>
+        <FlexBox>
+          <NeutralButton onClick={close}>
+            <XIcon />
+          </NeutralButton>
+          <PositiveButton onClick={save}>
+            <CheckIcon />
+          </PositiveButton>
+        </FlexBox>
+      </ModalFooter>
     </Modal>
   );
 };
