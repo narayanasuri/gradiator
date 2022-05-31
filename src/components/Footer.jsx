@@ -32,7 +32,7 @@ export default function Footer() {
       <p>
         Created by{" "}
         <a
-          href="https://narayanasuri.github.io/"
+          href="https://narayanasuri.vercel.app"
           target="_blank"
           rel="noreferrer"
         >

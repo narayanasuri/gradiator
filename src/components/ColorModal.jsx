@@ -1,8 +1,8 @@
 import { CheckIcon, TrashIcon, XIcon } from "@primer/octicons-react";
 import React, { useState } from "react";
-import { BlockPicker } from "react-color";
 import Modal from "react-modal/lib/components/Modal";
 import styled from "styled-components";
+import { HexColorPicker, HexColorInput } from "react-colorful";
 
 const modalStyles = {
   overlay: {
@@ -43,6 +43,21 @@ const FieldSet = styled.div`
 const PropertyLabel = styled.p`
   font-weight: 800;
   margin-bottom: 0.5rem !important;
+`;
+
+const PickerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  > input {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    box-shadow: none;
+    border: 0.063rem solid lightgray;
+  }
 `;
 
 const NegativeButton = styled.button`
@@ -129,7 +144,7 @@ const ColorModal = ({
     setIsOpen(false);
   };
 
-  const onColorUpdate = ({ hex }) => {
+  const onColorUpdate = hex => {
     setNewColor(hex);
   };
 
@@ -157,12 +172,10 @@ const ColorModal = ({
     >
       <FieldSet>
         <PropertyLabel>Color</PropertyLabel>
-        <BlockPicker
-          color={newColor}
-          onChangeComplete={onColorUpdate}
-          triangle="hide"
-          width="200px"
-        />
+        <PickerContainer>
+          <HexColorPicker color={newColor} onChange={onColorUpdate} />
+          <HexColorInput color={newColor} onChange={onColorUpdate} />
+        </PickerContainer>
       </FieldSet>
       <FieldSet>
         <PropertyLabel>{`Position (${newPosition})`}</PropertyLabel>

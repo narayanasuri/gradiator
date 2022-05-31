@@ -24,7 +24,7 @@
     "gatsby-plugin-react-helmet": "^5.14.0",
     "gatsby-plugin-styled-components": "^5.14.0",
     "react": "^17.0.1",
-    "react-color": "^2.19.3",
+    "react-colorful": "^5.5.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "react-modal": "^3.15.1",

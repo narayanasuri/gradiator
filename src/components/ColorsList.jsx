@@ -67,6 +67,8 @@ export default function ColorsList() {
       copy.colors.push({ value, position });
     }
 
+    copy.colors.sort((a, b) => a.position - b.position);
+
     setCurrentEditingColor({});
 
     updateGradient(copy);
