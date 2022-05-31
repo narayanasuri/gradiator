@@ -23,16 +23,22 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
 const Content = styled.div`
-  min-height: 100%;
+  flex: 1 1 auto;
 `;
 
 export default function Layout({ children }) {
   return (
-    <React.Fragment>
+    <Wrapper>
       <GlobalStyle theme="light" />
       <Content>{children}</Content>
       <Footer />
-    </React.Fragment>
+    </Wrapper>
   );
 }
