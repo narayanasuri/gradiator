@@ -1,3 +1,4 @@
+import { AlertFillIcon } from "@primer/octicons-react";
 import clone from "clone";
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
@@ -43,14 +44,32 @@ const AddButton = styled.div`
   }
 `;
 
+const WarningMessage = styled.p`
+  color: #f27168;
+  font-weight: 400 !important;
+  font-size: 0.85rem;
+  padding: 0.75rem 0.25rem;
+`;
+
 export default function ColorsList() {
   const { gradient, updateGradient } = useContext(GradientContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentEditingColor, setCurrentEditingColor] = useState({});
+  const [warning, setWarning] = useState(null);
 
   const openModal = () => {
     setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    const positions = gradient.colors.map(color => color.position);
+
+    if (new Set(positions).size !== positions.length) {
+      setWarning("Position overlap");
+    } else {
+      setWarning(null);
+    }
+  }, [gradient]);
 
   useEffect(() => {
     if (!isModalOpen) {
@@ -113,6 +132,12 @@ export default function ColorsList() {
           <AddButton onClick={openModal}>+</AddButton>
         )}
       </FlexBox>
+
+      {warning && (
+        <WarningMessage>
+          <AlertFillIcon /> {warning}
+        </WarningMessage>
+      )}
 
       <ColorModal
         {...currentEditingColor}

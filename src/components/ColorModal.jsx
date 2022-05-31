@@ -149,7 +149,7 @@ const ColorModal = ({
   };
 
   const onPositionUpdate = e => {
-    setNewPosition(e.target.value);
+    setNewPosition(parseInt(e.target.value, 10));
   };
 
   const save = () => {
